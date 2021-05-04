@@ -2,6 +2,13 @@
 #ifndef _VAR_HPP_
 #define _VAR_HPP_
 
+#ifndef VAR_FAIL
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#define VAR_FAIL(...) do { fprintf(stderr, "FAIL: "); fprintf(stderr, __VA_ARGS__); raise(SIGINT); exit(1); } while (0)
+#endif
+
 #include <stdint.h>
 
 typedef uint8_t U8;
