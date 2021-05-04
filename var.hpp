@@ -149,8 +149,8 @@ static char const * type_name(int type)
 #endif
     default:
         return "<unknown>";
-    };
-};
+    }
+}
 
 var::var() : _type(VAR_NIL)
 {
@@ -211,7 +211,7 @@ F32 var::to_f32() const
         VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return F32();
     }
-};
+}
 
 #if VAR_WANT_STRING
 
