@@ -116,6 +116,8 @@ public:
 #endif
 };
 
+var operator+(var a, var b);
+
 #endif
 
 #ifdef VAR_IMPLEMENTATION
@@ -228,6 +230,14 @@ char const * var::to_str() const
 }
 
 #endif
+
+var operator+(var a, var b)
+{
+    {
+        VAR_FAIL("no implementation of %s() for type %s (%d) and %s (%d)\n", __FUNCTION__, type_name(a._type), a._type, type_name(b._type), b._type);
+        return var();
+    }
+}
 
 #endif /* _VAR_CPP_ */
 
