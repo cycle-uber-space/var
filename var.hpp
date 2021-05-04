@@ -20,6 +20,10 @@
 
 #include <stdint.h>
 
+#ifdef VAR_NAMESPACE
+namespace VAR_NAMESPACE {
+#endif
+
 typedef uint8_t U8;
 typedef uint16_t U16;
 typedef uint32_t U32;
@@ -143,12 +147,20 @@ public:
 
 var operator+(var a, var b);
 
+#ifdef VAR_NAMESPACE
+}
+#endif
+
 #endif
 
 #ifdef VAR_IMPLEMENTATION
 
 #ifndef _VAR_CPP_
 #define _VAR_CPP_
+
+#ifdef VAR_NAMESPACE
+namespace VAR_NAMESPACE {
+#endif
 
 enum
 {
@@ -410,6 +422,10 @@ var operator+(var a, var b)
         return var();
     }
 }
+
+#ifdef VAR_NAMESPACE
+}
+#endif
 
 #endif /* _VAR_CPP_ */
 
