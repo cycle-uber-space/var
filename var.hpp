@@ -117,6 +117,7 @@ public:
     bool is_str() const;
 #endif
 
+    I32 to_i32() const;
     F32 to_f32() const;
     char const * to_str() const;
 
@@ -347,6 +348,18 @@ bool var::is_str() const
 }
 
 #endif
+
+I32 var::to_i32() const
+{
+    switch (_type)
+    {
+    case VAR_I32:
+        return _data.i32;
+    default:
+        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        return I32();
+    }
+}
 
 F32 var::to_f32() const
 {
