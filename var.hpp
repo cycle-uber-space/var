@@ -57,6 +57,21 @@ enum
     VAR_F64,
 };
 
+static char const * type_name(int type)
+{
+    switch (type)
+    {
+    case VAR_NIL:
+        return "nil";
+    case VAR_F32:
+        return "f32";
+    case VAR_F64:
+        return "f64";
+    default:
+        return "<unknown>";
+    };
+};
+
 var::var() : _type(VAR_NIL)
 {
 }
