@@ -393,7 +393,11 @@ char const * var::to_str() const
 
 var operator+(var a, var b)
 {
-    if (a.is_str() && b.is_str())
+    if (a.is_i32() && b.is_i32())
+    {
+        return var(a.to_i32() + b.to_i32());
+    }
+    else if (a.is_str() && b.is_str())
     {
         var c;
         c._type = VAR_STR;
