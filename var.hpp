@@ -154,6 +154,16 @@ static char const * type_name(int type)
     }
 }
 
+str operator+(str const & a, str const & b)
+{
+    str c;
+    c._size = a._size + b._size - 1;
+    c._data = (char *) malloc(c._size);
+    memcpy(c._data, a._data, a._size);
+    memcpy(c._data + a._size - 1, b._data, b._size);
+    return c;
+}
+
 var::var() : _type(VAR_NIL)
 {
 }
@@ -233,6 +243,14 @@ char const * var::to_str() const
 
 var operator+(var a, var b)
 {
+    if (a.is_str() && b.is_str())
+    {
+        var c;
+        c._type = VAR_STR;
+        c._data_str = a._data_str + b._data_str;
+        return c;
+    }
+    else
     {
         VAR_FAIL("no implementation of %s() for type %s (%d) and %s (%d)\n", __FUNCTION__, type_name(a._type), a._type, type_name(b._type), b._type);
         return var();
