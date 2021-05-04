@@ -82,7 +82,7 @@ public:
     char * _data;
 };
 
-#endif
+#endif /* _VAR_HPP_ */
 
 class var
 {
@@ -227,6 +227,6 @@ char const * var::to_str() const
 
 #endif
 
-#endif
+#endif /* _VAR_CPP_ */
 
-#endif
+#endif  /* VAR_IMPLEMENTATION */
