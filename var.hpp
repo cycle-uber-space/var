@@ -6,6 +6,10 @@
 #define VAR_WANT_STRING 1
 #endif
 
+#ifndef VAR_WANT_MATH
+#define VAR_WANT_MATH 1
+#endif
+
 #ifndef VAR_FAIL
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,6 +23,10 @@
 #endif
 
 #include <stdint.h>
+
+#if VAR_WANT_MATH
+#include <math.h>
+#endif
 
 #ifdef VAR_NAMESPACE
 namespace VAR_NAMESPACE {
@@ -147,6 +155,10 @@ public:
 };
 
 var operator+(var a, var b);
+
+#if VAR_WANT_MATH
+var sin(var x);
+#endif
 
 #ifdef VAR_NAMESPACE
 }
@@ -437,6 +449,22 @@ var operator+(var a, var b)
         return var();
     }
 }
+
+#if VAR_WANT_MATH
+var sin(var x)
+{
+    switch (x._type)
+    {
+    case VAR_F32:
+        return ::sinf(x._data.f32);
+    case VAR_F64:
+        return ::sin(x._data.f64);
+    default:
+        VAR_FAIL("no implementation of %s() for type %s (%d)\n", __FUNCTION__, type_name(x._type), x._type);
+        return var();
+    }
+}
+#endif
 
 #ifdef VAR_NAMESPACE
 }
