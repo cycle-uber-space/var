@@ -123,6 +123,7 @@ public:
 
     I32 to_i32() const;
     F32 to_f32() const;
+    F32 to_f64() const;
     char const * to_str() const;
 
     int _type;
@@ -384,6 +385,20 @@ F32 var::to_f32() const
     default:
         VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return F32();
+    }
+}
+
+F32 var::to_f64() const
+{
+    switch (_type)
+    {
+    case VAR_F32:
+        return (F64) _data.f32;
+    case VAR_F64:
+        return _data.f64;
+    default:
+        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        return F64();
     }
 }
 
