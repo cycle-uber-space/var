@@ -88,6 +88,14 @@ class var
 {
 public:
     var();
+    var(U8 val);
+    var(U16 val);
+    var(U32 val);
+    var(U64 val);
+    var(I8 val);
+    var(I16 val);
+    var(I32 val);
+    var(I64 val);
     var(F32 val);
     var(F64 val);
 #if VAR_WANT_STRING
@@ -95,6 +103,14 @@ public:
 #endif
 
     bool is_nil() const;
+    bool is_u8() const;
+    bool is_u16() const;
+    bool is_u32() const;
+    bool is_u64() const;
+    bool is_i8() const;
+    bool is_i16() const;
+    bool is_i32() const;
+    bool is_i64() const;
     bool is_f32() const;
     bool is_f64() const;
 #if VAR_WANT_STRING
@@ -107,6 +123,14 @@ public:
     int _type;
     union
     {
+        U8 u8;
+        U16 u16;
+        U32 u32;
+        U64 u64;
+        I8 i8;
+        I16 i16;
+        I32 i32;
+        I64 i64;
         F32 f32;
         F64 f64;
     } _data;
@@ -128,8 +152,20 @@ var operator+(var a, var b);
 enum
 {
     VAR_NIL = 0,
+
+    VAR_U8,
+    VAR_U16,
+    VAR_U32,
+    VAR_U64,
+
+    VAR_I8,
+    VAR_I16,
+    VAR_I32,
+    VAR_I64,
+
     VAR_F32,
     VAR_F64,
+
 #if VAR_WANT_STRING
     VAR_STR,
 #endif
@@ -141,14 +177,35 @@ static char const * type_name(int type)
     {
     case VAR_NIL:
         return "nil";
+
+    case VAR_U8:
+        return "u8";
+    case VAR_U16:
+        return "u16";
+    case VAR_U32:
+        return "u32";
+    case VAR_U64:
+        return "u64";
+
+    case VAR_I8:
+        return "i8";
+    case VAR_I16:
+        return "i16";
+    case VAR_I32:
+        return "i32";
+    case VAR_I64:
+        return "i64";
+
     case VAR_F32:
         return "f32";
     case VAR_F64:
         return "f64";
+
 #if VAR_WANT_STRING
     case VAR_STR:
         return "str";
 #endif
+
     default:
         return "<unknown>";
     }
@@ -166,6 +223,46 @@ str operator+(str const & a, str const & b)
 
 var::var() : _type(VAR_NIL)
 {
+}
+
+var::var(U8 val) : _type(VAR_U8)
+{
+    _data.u8 = val;
+}
+
+var::var(U16 val) : _type(VAR_U16)
+{
+    _data.u16 = val;
+}
+
+var::var(U32 val) : _type(VAR_U32)
+{
+    _data.u32 = val;
+}
+
+var::var(U64 val) : _type(VAR_U64)
+{
+    _data.u64 = val;
+}
+
+var::var(I8 val) : _type(VAR_I8)
+{
+    _data.i8 = val;
+}
+
+var::var(I16 val) : _type(VAR_I16)
+{
+    _data.i16 = val;
+}
+
+var::var(I32 val) : _type(VAR_I32)
+{
+    _data.i32 = val;
+}
+
+var::var(I64 val) : _type(VAR_I64)
+{
+    _data.i64 = val;
 }
 
 var::var(F32 val) : _type(VAR_F32)
@@ -190,6 +287,46 @@ var::var(char const * str) : _type(VAR_STR)
 bool var::is_nil() const
 {
     return _type == VAR_NIL;
+}
+
+bool var::is_u8() const
+{
+    return _type == VAR_U8;
+}
+
+bool var::is_u16() const
+{
+    return _type == VAR_U16;
+}
+
+bool var::is_u32() const
+{
+    return _type == VAR_U32;
+}
+
+bool var::is_u64() const
+{
+    return _type == VAR_U64;
+}
+
+bool var::is_i8() const
+{
+    return _type == VAR_I8;
+}
+
+bool var::is_i16() const
+{
+    return _type == VAR_I16;
+}
+
+bool var::is_i32() const
+{
+    return _type == VAR_I32;
+}
+
+bool var::is_i64() const
+{
+    return _type == VAR_I64;
 }
 
 bool var::is_f32() const
