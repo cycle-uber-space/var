@@ -219,6 +219,8 @@ char const * var::to_str() const
 {
     switch (_type)
     {
+    case VAR_STR:
+        return _data_str._data;
     default:
         VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return NULL;
