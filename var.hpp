@@ -430,21 +430,22 @@ char const * var::to_str() const
 
 #endif
 
+#define _VAR2(a, b) (((a) << 16) | (b))
+
 var operator+(var a, var b)
 {
-    if (a.is_i32() && b.is_i32())
+    switch (_VAR2(a._type, b._type))
     {
+    case _VAR2(VAR_I32, VAR_I32):
         return var(a.to_i32() + b.to_i32());
-    }
-    else if (a.is_str() && b.is_str())
-    {
-        var c;
-        c._type = VAR_STR;
-        c._data_str = a._data_str + b._data_str;
-        return c;
-    }
-    else
-    {
+    case _VAR2(VAR_STR, VAR_STR):
+        {
+            var c;
+            c._type = VAR_STR;
+            c._data_str = a._data_str + b._data_str;
+            return c;
+        }
+    default:
         VAR_FAIL("no implementation of %s() for type %s (%d) and %s (%d)\n", __FUNCTION__, type_name(a._type), a._type, type_name(b._type), b._type);
         return var();
     }
