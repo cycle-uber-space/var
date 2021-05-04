@@ -35,6 +35,8 @@ public:
     bool is_f32() const;
     bool is_f64() const;
 
+    F32 to_f32() const;
+
     int _type;
     union
     {
@@ -100,6 +102,20 @@ bool var::is_f64() const
 {
     return _type == VAR_F64;
 }
+
+F32 var::to_f32() const
+{
+    switch (_type)
+    {
+    case VAR_F32:
+        return _data.f32;
+    case VAR_F64:
+        return (F32) _data.f64;
+    default:
+        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        return F32();
+    }
+};
 
 #endif
 
