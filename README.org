@@ -1,0 +1,4 @@
+
+* var
+
+variant type in the spirit of boost::any or QVariant, minus the bloat
