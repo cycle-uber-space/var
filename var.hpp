@@ -158,6 +158,8 @@ var operator+(var a, var b);
 
 #if VAR_WANT_MATH
 var sin(var x);
+var cos(var x);
+var sqrt(var x);
 #endif
 
 #ifdef VAR_NAMESPACE
@@ -460,6 +462,34 @@ var sin(var x)
         return ::sinf(x._data.f32);
     case VAR_F64:
         return ::sin(x._data.f64);
+    default:
+        VAR_FAIL("no implementation of %s() for type %s (%d)\n", __FUNCTION__, type_name(x._type), x._type);
+        return var();
+    }
+}
+
+var cos(var x)
+{
+    switch (x._type)
+    {
+    case VAR_F32:
+        return ::cosf(x._data.f32);
+    case VAR_F64:
+        return ::cos(x._data.f64);
+    default:
+        VAR_FAIL("no implementation of %s() for type %s (%d)\n", __FUNCTION__, type_name(x._type), x._type);
+        return var();
+    }
+}
+
+var sqrt(var x)
+{
+    switch (x._type)
+    {
+    case VAR_F32:
+        return ::sqrtf(x._data.f32);
+    case VAR_F64:
+        return ::sqrt(x._data.f64);
     default:
         VAR_FAIL("no implementation of %s() for type %s (%d)\n", __FUNCTION__, type_name(x._type), x._type);
         return var();
