@@ -10,6 +10,10 @@
 #define VAR_WANT_MATH 1
 #endif
 
+#ifndef VAR_WANT_IOSTREAM
+#define VAR_WANT_IOSTREAM 0
+#endif
+
 #ifndef VAR_FAIL
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,6 +30,10 @@
 
 #if VAR_WANT_MATH
 #include <math.h>
+#endif
+
+#if VAR_WANT_IOSTREAM
+#include <iostream>
 #endif
 
 #ifdef VAR_NAMESPACE
@@ -160,6 +168,10 @@ var operator+(var a, var b);
 var sin(var x);
 var cos(var x);
 var sqrt(var x);
+#endif
+
+#if VAR_WANT_IOSTREAM
+std::ostream & operator<<(std::ostream & out, var v);
 #endif
 
 #ifdef VAR_NAMESPACE
@@ -444,6 +456,7 @@ var operator+(var a, var b)
         {
             var c;
             c._type = VAR_STR;
+            c._data.u64 = 0;
             c._data_str = a._data_str + b._data_str;
             return c;
         }
@@ -495,6 +508,42 @@ var sqrt(var x)
         return var();
     }
 }
+#endif
+
+#if VAR_WANT_IOSTREAM
+
+std::ostream & operator<<(std::ostream & out, var x)
+{
+    switch (x._type)
+    {
+    case VAR_I8:
+        return out << x._data.i8;
+    case VAR_I16:
+        return out << x._data.i16;
+    case VAR_I32:
+        return out << x._data.i32;
+    case VAR_I64:
+        return out << x._data.i64;
+    case VAR_U8:
+        return out << x._data.u8;
+    case VAR_U16:
+        return out << x._data.u16;
+    case VAR_U32:
+        return out << x._data.u32;
+    case VAR_U64:
+        return out << x._data.u64;
+    case VAR_F32:
+        return out << x._data.f32;
+    case VAR_F64:
+        return out << x._data.f64;
+    case VAR_STR:
+        return out << x._data_str._data;
+    default:
+        VAR_FAIL("no implementation of %s() for type %s (%d)\n", __FUNCTION__, type_name(x._type), x._type);
+        return out;
+    }
+}
+
 #endif
 
 #ifdef VAR_NAMESPACE
