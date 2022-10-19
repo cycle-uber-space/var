@@ -542,6 +542,8 @@ bool id(var a, var b)
         return a._data.f32 == b._data.f32;
     case VAR_F64:
         return a._data.f64 == b._data.f64;
+    case VAR_STR:
+        return id(a._data_str, b._data_str);
     default:
         VAR_FAIL("cannot compare identity of type %s (%d)\n", type_name(a._type), a._type);
         return false;
@@ -554,6 +556,10 @@ bool eq(var a, var b)
     {
     case _VAR2(VAR_U8, VAR_I32):
         return a.to_i32() == b.to_i32();
+#if VAR_WANT_STRING
+    case _VAR2(VAR_STR, VAR_STR):
+        return strcmp(a.to_str(), b.to_str()) == 0;
+#endif
     default:
         VAR_FAIL("eq(%s, %s)?\n", type_name(a._type), type_name(b._type));
         return id(a, b);
