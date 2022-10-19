@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
-#define VAR_FAIL(...) do { fprintf(stderr, "FAIL: "); fprintf(stderr, __VA_ARGS__); raise(SIGINT); exit(1); } while (0)
+#define VAR_FAIL(...) do { fprintf(stderr, "%s:%d: FAIL: ", __FILE__, __LINE__); fprintf(stderr, __VA_ARGS__); raise(SIGINT); exit(1); } while (0)
 #endif
 
 #if VAR_WANT_STRING
