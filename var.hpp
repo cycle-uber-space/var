@@ -141,7 +141,10 @@ public:
     U16 to_u16() const;
     U32 to_u32() const;
     U64 to_u64() const;
+    I8 to_i8() const;
+    I16 to_i16() const;
     I32 to_i32() const;
+    I64 to_i64() const;
     F32 to_f32() const;
     F32 to_f64() const;
     char const * to_str() const;
@@ -440,6 +443,34 @@ U32 var::to_u32() const
     }
 }
 
+I8 var::to_i8() const
+{
+    switch (_type)
+    {
+    case VAR_I8:
+        return _data.i8;
+    default:
+        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        return I16();
+    }
+}
+
+I16 var::to_i16() const
+{
+    switch (_type)
+    {
+    case VAR_U8:
+        return (I16) _data.u8;
+    case VAR_I8:
+        return (I16) _data.i8;
+    case VAR_I16:
+        return _data.i16;
+    default:
+        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        return I16();
+    }
+}
+
 I32 var::to_i32() const
 {
     switch (_type)
@@ -457,6 +488,30 @@ I32 var::to_i32() const
     default:
         VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return I32();
+    }
+}
+
+I64 var::to_i64() const
+{
+    switch (_type)
+    {
+    case VAR_U8:
+        return (I64) _data.u8;
+    case VAR_U16:
+        return (I64) _data.u16;
+    case VAR_U32:
+        return (I64) _data.u32;
+    case VAR_I8:
+        return (I64) _data.i8;
+    case VAR_I16:
+        return (I64) _data.i16;
+    case VAR_I32:
+        return (I64) _data.i32;
+    case VAR_I64:
+        return _data.i64;
+    default:
+        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        return I64();
     }
 }
 
