@@ -413,6 +413,8 @@ I32 var::to_i32() const
 {
     switch (_type)
     {
+    case VAR_U8:
+        return (I32) _data.u8;
     case VAR_I32:
         return _data.i32;
     default:
