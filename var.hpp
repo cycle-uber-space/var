@@ -543,7 +543,7 @@ bool id(var a, var b)
     case VAR_F64:
         return a._data.f64 == b._data.f64;
     default:
-        VAR_FAIL("cannot test identity of type %s (%d)\n", type_name(a._type), a._type);
+        VAR_FAIL("cannot compare identity of type %s (%d)\n", type_name(a._type), a._type);
         return false;
     }
 }
