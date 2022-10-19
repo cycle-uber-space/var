@@ -163,6 +163,12 @@ public:
 #endif
 };
 
+bool id(var a, var b);
+bool eq(var a, var b);
+
+bool operator==(var a, var b);
+bool operator!=(var a, var b);
+
 var operator+(var a, var b);
 
 #if VAR_WANT_MATH
@@ -460,6 +466,46 @@ char const * var::to_str() const
 #endif
 
 #define _VAR2(a, b) (((a) << 16) | (b))
+
+bool id(var a, var b)
+{
+    if (a._type != b._type)
+    {
+        return false;
+    }
+
+    switch (a._type)
+    {
+    case VAR_NIL:
+        return true;
+#endif
+    default:
+        VAR_FAIL("cannot test identity of type %s (%d)\n", type_name(a._type), a._type);
+        return false;
+    }
+}
+
+bool eq(var a, var b)
+{
+    switch (_VAR2(a._type, b._type))
+    {
+    case _VAR2(VAR_U8, VAR_I32):
+        return a.to_i32() == b.to_i32();
+    default:
+        VAR_FAIL("eq(%s, %s)?\n", type_name(a._type), type_name(b._type));
+        return id(a, b);
+    }
+}
+
+bool operator==(var a, var b)
+{
+    return eq(a, b);
+}
+
+bool operator!=(var a, var b)
+{
+    return !eq(a, b);
+}
 
 var operator+(var a, var b)
 {
