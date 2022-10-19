@@ -517,8 +517,26 @@ bool id(var a, var b)
     {
     case VAR_NIL:
         return true;
-#if 0
-#endif
+    case VAR_U8:
+        return a._data.u8 == b._data.u8;
+    case VAR_U16:
+        return a._data.u16 == b._data.u16;
+    case VAR_U32:
+        return a._data.u32 == b._data.u32;
+    case VAR_U64:
+        return a._data.u64 == b._data.u64;
+    case VAR_I8:
+        return a._data.i8 == b._data.i8;
+    case VAR_I16:
+        return a._data.i16 == b._data.i16;
+    case VAR_I32:
+        return a._data.i32 == b._data.i32;
+    case VAR_I64:
+        return a._data.i64 == b._data.i64;
+    case VAR_F32:
+        return a._data.f32 == b._data.f32;
+    case VAR_F64:
+        return a._data.f64 == b._data.f64;
     default:
         VAR_FAIL("cannot test identity of type %s (%d)\n", type_name(a._type), a._type);
         return false;
