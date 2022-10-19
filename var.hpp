@@ -408,7 +408,7 @@ U8 var::to_u8() const
     case VAR_U8:
         return _data.u8;
     default:
-        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        VAR_FAIL("no safe conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return U16();
     }
 }
@@ -422,7 +422,7 @@ U16 var::to_u16() const
     case VAR_U16:
         return _data.u16;
     default:
-        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        VAR_FAIL("no safe conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return U16();
     }
 }
@@ -438,7 +438,7 @@ U32 var::to_u32() const
     case VAR_U32:
         return _data.u32;
     default:
-        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        VAR_FAIL("no safe conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return U16();
     }
 }
@@ -450,7 +450,7 @@ I8 var::to_i8() const
     case VAR_I8:
         return _data.i8;
     default:
-        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        VAR_FAIL("no safe conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return I16();
     }
 }
@@ -466,7 +466,7 @@ I16 var::to_i16() const
     case VAR_I16:
         return _data.i16;
     default:
-        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        VAR_FAIL("no safe conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return I16();
     }
 }
@@ -486,7 +486,7 @@ I32 var::to_i32() const
     case VAR_I32:
         return _data.i32;
     default:
-        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        VAR_FAIL("no safe conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return I32();
     }
 }
@@ -510,7 +510,7 @@ I64 var::to_i64() const
     case VAR_I64:
         return _data.i64;
     default:
-        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        VAR_FAIL("no safe conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return I64();
     }
 }
@@ -524,7 +524,7 @@ F32 var::to_f32() const
     case VAR_F64:
         return (F32) _data.f64;
     default:
-        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        VAR_FAIL("no safe conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return F32();
     }
 }
@@ -538,7 +538,7 @@ F32 var::to_f64() const
     case VAR_F64:
         return _data.f64;
     default:
-        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        VAR_FAIL("no safe conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return F64();
     }
 }
@@ -552,7 +552,7 @@ char const * var::to_str() const
     case VAR_STR:
         return _data_str._data;
     default:
-        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        VAR_FAIL("no safe conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
         return NULL;
     }
 }
