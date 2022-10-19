@@ -580,6 +580,8 @@ var operator+(var a, var b)
 {
     switch (_VAR2(a._type, b._type))
     {
+    case _VAR2(VAR_U8, VAR_U16):
+        return var((U16) (a.to_u16() + b.to_u16()));
     case _VAR2(VAR_I32, VAR_I32):
         return var(a.to_i32() + b.to_i32());
     case _VAR2(VAR_STR, VAR_STR):
@@ -590,8 +592,6 @@ var operator+(var a, var b)
             c._data_str = a._data_str + b._data_str;
             return c;
         }
-    case _VAR2(VAR_U8, VAR_U16):
-        return var((U16) (a.to_u16() + b.to_u16()));
     default:
         VAR_FAIL("no implementation of %s() for type %s (%d) and %s (%d)\n", __FUNCTION__, type_name(a._type), a._type, type_name(b._type), b._type);
         return var();
