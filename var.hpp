@@ -580,6 +580,10 @@ var operator+(var a, var b)
 {
     switch (_VAR2(a._type, b._type))
     {
+    case _VAR2(VAR_U8, VAR_U8):
+        return var((U8) (a.to_u8() + b.to_u8()));
+    case _VAR2(VAR_U16, VAR_U16):
+        return var((U8) (a.to_u16() + b.to_u16()));
     case _VAR2(VAR_U8, VAR_U16):
         return var((U16) (a.to_u16() + b.to_u16()));
     case _VAR2(VAR_I32, VAR_I32):
