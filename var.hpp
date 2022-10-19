@@ -137,7 +137,10 @@ public:
     bool is_str() const;
 #endif
 
+    U8 to_u8() const;
     U16 to_u16() const;
+    U32 to_u32() const;
+    U64 to_u64() const;
     I32 to_i32() const;
     F32 to_f32() const;
     F32 to_f64() const;
@@ -395,6 +398,18 @@ bool var::is_str() const
 
 #endif
 
+U8 var::to_u8() const
+{
+    switch (_type)
+    {
+    case VAR_U8:
+        return _data.u8;
+    default:
+        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        return U16();
+    }
+}
+
 U16 var::to_u16() const
 {
     switch (_type)
@@ -409,12 +424,34 @@ U16 var::to_u16() const
     }
 }
 
+U32 var::to_u32() const
+{
+    switch (_type)
+    {
+    case VAR_U8:
+        return (U32) _data.u8;
+    case VAR_U16:
+        return (U32) _data.u16;
+    case VAR_U32:
+        return _data.u32;
+    default:
+        VAR_FAIL("no conversion %s() for type %s (%d)\n", __FUNCTION__, type_name(_type), _type);
+        return U16();
+    }
+}
+
 I32 var::to_i32() const
 {
     switch (_type)
     {
     case VAR_U8:
         return (I32) _data.u8;
+    case VAR_U16:
+        return (I32) _data.u16;
+    case VAR_I8:
+        return (I32) _data.i8;
+    case VAR_I16:
+        return (I32) _data.i16;
     case VAR_I32:
         return _data.i32;
     default:
