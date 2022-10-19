@@ -506,6 +506,11 @@ char const * var::to_str() const
 
 #define _VAR2(a, b) (((a) << 16) | (b))
 
+static bool id(str a, str b)
+{
+    return a._size == b._size && a._data == b._data;
+}
+
 bool id(var a, var b)
 {
     if (a._type != b._type)
