@@ -480,6 +480,7 @@ bool id(var a, var b)
     {
     case VAR_NIL:
         return true;
+#if 0
 #endif
     default:
         VAR_FAIL("cannot test identity of type %s (%d)\n", type_name(a._type), a._type);
